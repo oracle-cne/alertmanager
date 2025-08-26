@@ -1,0 +1,13 @@
+@Library('olcne-pipeline') _
+import com.oracle.olcne.pipeline.BranchPattern
+
+String version  = "{{{ .major }}}.{{{ .minor }}}.{{{ .patch }}}"
+String imageTag = "v" + version
+
+olcnePipeline(
+        branchPattern: new BranchPattern(master: 'oracle/release/' + version, feature: '(?!^release/.*$)(^.*$)'),
+        containers: [('container-registry.oracle.com/olcne/alertmanager:' + imageTag ): 'olcne/alertmanager:' + imageTag],
+        platforms: [ 'ol8', 'ol9'],
+        architectures: ['x86_64', 'aarch64'],
+        yumOL8Repos: ['ol8_appstream']
+)
