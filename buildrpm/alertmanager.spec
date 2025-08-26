@@ -43,12 +43,13 @@ GIT_REVISION={{{.commit_long_hash}}}
 BUILD_USER=${BUILD_USER:-"${USER}@%{_buildhost}"}
 BUILD_DATE=${BUILD_DATE:-%{build_date}}
 ldflags="
+        -X main.version=v%{version}
         -X github.com/prometheus/common/version.Version=%{version}
         -X github.com/prometheus/common/version.Revision=${GIT_REVISION}
         -X github.com/prometheus/common/version.Branch=HEAD
         -X github.com/prometheus/common/version.BuildUser=${BUILD_USER}
         -X github.com/prometheus/common/version.BuildDate=${BUILD_DATE}"
-go build -v -o %{_builddir}/%{name}-%{version}/output/bin/ \
+go build -trimpath=false -v -o %{_builddir}/%{name}-%{version}/output/bin/ \
     -ldflags "${ldflags}" \
     ${GOPATH_SRC}/cmd/alertmanager \
     ${GOPATH_SRC}/cmd/amtool
