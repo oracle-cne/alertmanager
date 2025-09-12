@@ -17,3 +17,6 @@ go build -trimpath=false -v -o bin/ \
     -ldflags "${ldflags}" \
     "${GOPATH_SRC}"/cmd/alertmanager \
     "${GOPATH_SRC}"/cmd/amtool
+
+./bin/alertmanger --version
+./bin/amtool --version
