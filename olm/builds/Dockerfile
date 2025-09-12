@@ -12,7 +12,7 @@ ENV GOPATH_SRC=$GOPATH/src/github.com/oracle-cne/alertmanager
 WORKDIR /workspace/go/src/github.com/oracle-cne/alertmanager
 
 RUN git config --global --add safe.directory $(pwd) && \
-    sh go-build.sh
+    sh olm/go-build.sh
 
 FROM container-registry.oracle.com/os/oraclelinux:9-slim
 
