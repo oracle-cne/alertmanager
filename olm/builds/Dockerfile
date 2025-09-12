@@ -18,8 +18,8 @@ FROM container-registry.oracle.com/os/oraclelinux:9-slim
 
 COPY LICENSE THIRD_PARTY_LICENSES.txt olm/SECURITY.md /usr/share/licenses/alertmanager/
 COPY examples/ha/alertmanager.yml /etc/alertmanager/
-COPY bin/alertmanager /usr/bin/alertmanager
-COPY bin/amtool /usr/bin/amtool
+COPY --from=builder /workspace/go/src/github.com/oracle-cne/alertmanager/bin/alertmanager /usr/bin/alertmanager
+COPY --from=builder /workspace/go/src/github.com/oracle-cne/alertmanager/bin/amtool /usr/bin/amtool
 
 RUN microdnf update -y &&\
     microdnf clean all &&\
