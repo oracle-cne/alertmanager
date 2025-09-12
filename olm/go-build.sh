@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 mkdir -p bin
+echo GOPATH_SRC = "$GOPATH_SRC"
 version="0.28.1"
 
 GIT_REVISION=$(git rev-parse --long HEAD)
@@ -12,7 +13,8 @@ ldflags="
         -X github.com/prometheus/common/version.Branch=HEAD
         -X github.com/prometheus/common/version.BuildUser=${USER}@${HOST}
         -X github.com/prometheus/common/version.BuildDate=${BUILD_DATE}"
+
 go build -trimpath=false -v -o bin/ \
     -ldflags "${ldflags}" \
-    ${GOPATH_SRC}/cmd/alertmanager \
-    ${GOPATH_SRC}/cmd/amtool
+    "${GOPATH_SRC}"/cmd/alertmanager \
+    "${GOPATH_SRC}"/cmd/amtool
