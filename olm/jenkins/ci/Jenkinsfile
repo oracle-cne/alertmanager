@@ -11,10 +11,5 @@ imagePipeline(
         platforms: [ 'ol9'],
         architectures: ['x86_64', 'aarch64'],
         yumOL9Repos: ['ol9_appstream'],
-        setupScript: '''
-          export GOPATH=$(go env GOPATH)
-          package_name="alertmanager"
-          GOPATH_SRC=$GOPATH/src/github.com/oracle-cne/${package_name}
-        ''',
         buildScript: "sh olm/build-image.sh"
 )
