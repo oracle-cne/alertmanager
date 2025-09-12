@@ -4,10 +4,17 @@ import com.oracle.olcne.pipeline.BranchPattern
 String version  = "0.28.1"
 String imageTag = "v" + version
 
-olcnePipeline(
+imagePipeline(
         branchPattern: new BranchPattern(master: 'oracle/release/' + version, feature: '(?!^release/.*$)(^.*$)'),
         containers: [('container-registry.oracle.com/olcne/alertmanager:' + imageTag ): 'olcne/alertmanager:' + imageTag],
-        platforms: [ 'ol8'],
+        golang: "1.24.3",
+        platforms: [ 'ol9'],
         architectures: ['x86_64', 'aarch64'],
-        yumOL8Repos: ['ol8_appstream']
+        yumOL9Repos: ['ol9_appstream'],
+        setupScript: '''
+          export GOPATH=$(go env GOPATH)
+          package_name="alertmanager"
+          GOPATH_SRC=$GOPATH/src/github.com/oracle-cne/${package_name}
+        ''',
+        buildScript: "sh olm/build-image.sh"
 )
