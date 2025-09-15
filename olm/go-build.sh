@@ -18,5 +18,5 @@ go build -trimpath=false -v -o bin/ \
     "${GOPATH_SRC}"/cmd/alertmanager \
     "${GOPATH_SRC}"/cmd/amtool
 
-./bin/alertmanger --version
+./bin/alertmanager --version
 ./bin/amtool --version
