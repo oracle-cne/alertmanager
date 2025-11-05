@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 name="alertmanager"
-version=0.29.0"
+version="0.29.0"
 registry="container-registry.oracle.com/olcne"
 docker_tag=${registry}/${name}:v${version}
 
