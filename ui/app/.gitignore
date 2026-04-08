@@ -1,4 +1,5 @@
-dist/
+dist/*
+!dist/embed-placeholder
 elm-stuff/
 .elm
 /elm-*
