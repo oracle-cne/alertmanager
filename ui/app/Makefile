@@ -56,3 +56,5 @@ src/Data: ../../api/v2/openapi.yaml
 .PHONY: clean
 clean:
 	- @rm -rf .build_stamp dist elm-stuff src/Data src/DateTime.elm openapi-* elm-*
+	@mkdir -p dist
+	@printf '%s\n' 'This file ensures app/dist exists in clean checkouts for //go:embed.' > dist/embed-placeholder

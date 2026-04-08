@@ -26,6 +26,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const distEmbedPlaceholder = "embed-placeholder"
+
 func TestSelectEncoding(t *testing.T) {
 	for _, tt := range []struct {
 		header string
@@ -90,6 +92,12 @@ func TestIndexAssetsAreServedPrefix(t *testing.T) {
 	fetchIndexAndAssets(t, router, "/alertmanager/")
 }
 
+func TestEmbeddedDistPlaceholderExists(t *testing.T) {
+	f, err := asset.Open(path.Join("app", "dist", distEmbedPlaceholder))
+	require.NoError(t, err)
+	require.NoError(t, f.Close())
+}
+
 // walkEmbeddedFiles returns a map of URL to encodings for every file in
 // app/dist.
 func walkEmbeddedFiles(t *testing.T) map[string][]encoding {
@@ -102,6 +110,9 @@ func walkEmbeddedFiles(t *testing.T) map[string][]encoding {
 	err = fs.WalkDir(appFS, ".", func(filePath string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() {
 			return err
+		}
+		if filePath == distEmbedPlaceholder {
+			return nil
 		}
 		base := strings.TrimSuffix(strings.TrimSuffix(filePath, ".gz"), ".br")
 		count[base]++
