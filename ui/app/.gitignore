@@ -1,4 +1,8 @@
-dist/
+dist/**
+!dist/index.html.br
+!dist/index.html.gz
+!dist/favicon.ico.br
+!dist/favicon.ico.gz
 elm-stuff/
 .elm
 /elm-*
