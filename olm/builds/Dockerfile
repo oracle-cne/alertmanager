@@ -1,18 +1,26 @@
 FROM container-registry.oracle.com/os/oraclelinux:9 AS builder
 
-RUN dnf config-manager --enable ol9_codeready_builder && \
-    dnf -y install git make golang hostname && \
-    go version
+ARG GOLANG_VERSION
+
+ENV NPM_CONFIG_USERCONFIG=/run/npm-config/.npmrc
+
+RUN dnf --enablerepo=ol9_codeready_builder module install -y nodejs:24 && \
+    dnf --enablerepo=ol9_codeready_builder -y install git make golang-${GOLANG_VERSION} hostname npm && \
+    dnf clean all && \
+    go version && \
+    node --version && \
+    npm --version
 
 # Copy the contents of the repository
 COPY . /workspace/go/src/github.com/oracle-cne/alertmanager
 
-ENV GOPATH=/workspace/go CGO_ENABLED=0
+ENV GOPATH=/workspace/go CGO_ENABLED=0 GOTOOLCHAIN=local
 ENV GOPATH_SRC=$GOPATH/src/github.com/oracle-cne/alertmanager
 WORKDIR /workspace/go/src/github.com/oracle-cne/alertmanager
 
-RUN git config --global --add safe.directory $(pwd) && \
-    sh olm/go-build.sh
+RUN --mount=type=secret,id=npmrc,target=/run/npm-config/.npmrc \
+    git config --global --add safe.directory $(pwd) && \
+    bash olm/go-build.sh
 
 FROM container-registry.oracle.com/os/oraclelinux:9-slim
 
