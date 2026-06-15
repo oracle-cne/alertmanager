@@ -1,11 +1,70 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 name="alertmanager"
 version="0.33.0"
 registry="container-registry.oracle.com/olcne"
 docker_tag=${registry}/${name}:v${version}
+golang_version="${GOLANG_VERSION:-${1:-}}"
+npm_config="${NPM_CONFIG_USERCONFIG:-}"
+tmp_npm_config=""
 
-docker build --pull \
-    --build-arg https_proxy=${https_proxy} \
-    -t ${docker_tag} -f ./olm/builds/Dockerfile .
-docker save -o ${name}.tar ${docker_tag}
+cleanup() {
+    if [[ -n "${tmp_npm_config}" ]]; then
+        rm -f "${tmp_npm_config}"
+    fi
+}
+trap cleanup EXIT
+
+if [[ -z "${golang_version}" ]]; then
+    echo "build-image.sh: unable to determine Go version; set GOLANG_VERSION or pass it as the first argument" >&2
+    exit 1
+fi
+
+if [[ -z "${npm_config}" && -n "${HOME:-}" && -s "${HOME}/.npmrc" ]]; then
+    npm_config="${HOME}/.npmrc"
+    echo "build-image.sh: using npm config file from HOME: ${npm_config}"
+fi
+
+if [[ -n "${npm_config}" && "${npm_config}" != /* ]]; then
+    npm_config="$(pwd)/${npm_config}"
+fi
+
+build_args=(
+    --pull
+    --build-arg "GOLANG_VERSION=${golang_version}"
+    -t "${docker_tag}"
+    -f ./olm/builds/Dockerfile
+    .
+)
+
+if [[ -n "${npm_config}" ]]; then
+    if [[ ! -s "${npm_config}" ]]; then
+        echo "build-image.sh: npm config file ${npm_config} is missing or empty; set NPM_CONFIG_USERCONFIG to a valid file or leave it unset" >&2
+        exit 1
+    fi
+
+    echo "build-image.sh: mounting npm config file ${npm_config}"
+else
+    tmp_npm_config="$(mktemp)"
+    npm_config="${tmp_npm_config}"
+    echo "build-image.sh: no npm config file defined or found; mounting an empty npm config secret"
+fi
+
+build_args=(
+    --secret "id=npmrc,src=${npm_config}"
+    "${build_args[@]}"
+)
+
+if [[ -f /etc/yum.conf && -d /etc/yum.repos.d ]]; then
+    build_args=(
+        --volume /etc/yum.conf:/etc/yum.conf:ro
+        --volume /etc/yum.repos.d:/etc/yum.repos.d:ro
+        "${build_args[@]}"
+    )
+fi
+
+podman build "${build_args[@]}"
+
+podman save "${docker_tag}" > "${name}.tar"

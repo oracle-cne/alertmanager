@@ -9,5 +9,5 @@ imagePipeline(
         containers: [('container-registry.oracle.com/olcne/alertmanager:' + imageTag ): 'olcne/alertmanager:' + imageTag],
         platforms: [ 'ol9'],
         architectures: ['x86_64', 'aarch64'],
-        buildScript: "sh olm/build-image.sh"
+        buildScript: "bash olm/build-image.sh"
 )
