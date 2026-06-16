@@ -17,6 +17,8 @@ cleanup() {
 }
 trap cleanup EXIT
 
+set -x
+
 if [[ -z "${golang_version}" ]]; then
     echo "build-image.sh: unable to determine Go version; set GOLANG_VERSION or pass it as the first argument" >&2
     exit 1
