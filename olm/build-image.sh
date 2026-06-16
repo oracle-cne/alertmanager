@@ -59,13 +59,40 @@ build_args=(
     "${build_args[@]}"
 )
 
-if [[ -f /etc/yum.conf && -d /etc/yum.repos.d ]]; then
-    build_args=(
-        --volume /etc/yum.conf:/etc/yum.conf:ro
-        --volume /etc/yum.repos.d:/etc/yum.repos.d:ro
-        "${build_args[@]}"
-    )
-fi
+mount_yum_config() {
+    local yum_repo_config_dir="${YUM_REPO_CONFIG_DIR:-}"
+
+    if [[ -n "${yum_repo_config_dir}" ]]; then
+        echo "build-image.sh: checking generated yum repo config directory ${yum_repo_config_dir}"
+        if [[ ! -f "${yum_repo_config_dir}/yum.conf" || ! -d "${yum_repo_config_dir}/yum.repos.d" ]]; then
+            echo "build-image.sh: generated yum repo config directory ${yum_repo_config_dir} is incomplete" >&2
+            exit 1
+        fi
+
+        echo "build-image.sh: mounting generated yum repo config directory ${yum_repo_config_dir}"
+        build_args=(
+            --volume "${yum_repo_config_dir}/yum.conf:/etc/yum.conf:ro"
+            --volume "${yum_repo_config_dir}/yum.repos.d:/etc/yum.repos.d:ro"
+            "${build_args[@]}"
+        )
+        return
+    fi
+
+    echo "build-image.sh: YUM_REPO_CONFIG_DIR is not set; checking default yum config paths"
+    if [[ -f /etc/yum.conf && -d /etc/yum.repos.d ]]; then
+        echo "build-image.sh: mounting default yum config paths"
+        build_args=(
+            --volume /etc/yum.conf:/etc/yum.conf:ro
+            --volume /etc/yum.repos.d:/etc/yum.repos.d:ro
+            "${build_args[@]}"
+        )
+        return
+    fi
+
+    echo "build-image.sh: no yum config paths mounted; using base image repository configuration"
+}
+
+mount_yum_config
 
 podman build "${build_args[@]}"
 
