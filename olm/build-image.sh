@@ -72,7 +72,7 @@ mount_yum_config() {
         echo "build-image.sh: mounting generated yum repo config directory ${yum_repo_config_dir}"
         build_args=(
             --volume "${yum_repo_config_dir}/yum.conf:/etc/yum.conf:ro"
-            --volume "${yum_repo_config_dir}/yum.repos.d:/etc/yum.repos.d:ro"
+            --volume "${yum_repo_config_dir}/yum.repos.d:/etc/yum.repos.d:O"
             "${build_args[@]}"
         )
         return
