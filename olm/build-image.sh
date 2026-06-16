@@ -60,36 +60,26 @@ build_args=(
 )
 
 mount_yum_config() {
-    local yum_repo_config_dir="${YUM_REPO_CONFIG_DIR:-}"
+    local yum_repo_config_file="${YUM_REPO_CONFIG_FILE:-}"
 
-    if [[ -n "${yum_repo_config_dir}" ]]; then
-        echo "build-image.sh: checking generated yum repo config directory ${yum_repo_config_dir}"
-        if [[ ! -f "${yum_repo_config_dir}/yum.conf" || ! -d "${yum_repo_config_dir}/yum.repos.d" ]]; then
-            echo "build-image.sh: generated yum repo config directory ${yum_repo_config_dir} is incomplete" >&2
-            exit 1
-        fi
-
-        echo "build-image.sh: mounting generated yum repo config directory ${yum_repo_config_dir}"
-        build_args=(
-            --volume "${yum_repo_config_dir}/yum.conf:/etc/yum.conf:ro"
-            --volume "${yum_repo_config_dir}/yum.repos.d:/etc/yum.repos.d:O"
-            "${build_args[@]}"
-        )
+    if [[ -z "${yum_repo_config_file}" ]]; then
+        echo "build-image.sh: YUM_REPO_CONFIG_FILE is not set; using base image repository configuration"
         return
+    elif [[ "${yum_repo_config_file}" != /* ]]; then
+        yum_repo_config_file="$(pwd)/${yum_repo_config_file}"
     fi
 
-    echo "build-image.sh: YUM_REPO_CONFIG_DIR is not set; checking default yum config paths"
-    if [[ -f /etc/yum.conf && -d /etc/yum.repos.d ]]; then
-        echo "build-image.sh: mounting default yum config paths"
-        build_args=(
-            --volume /etc/yum.conf:/etc/yum.conf:ro
-            --volume /etc/yum.repos.d:/etc/yum.repos.d:ro
-            "${build_args[@]}"
-        )
-        return
+    echo "build-image.sh: checking yum repo config file ${yum_repo_config_file}"
+    if [[ ! -s "${yum_repo_config_file}" ]]; then
+        echo "build-image.sh: yum repo config file ${yum_repo_config_file} is missing or empty" >&2
+        exit 1
     fi
 
-    echo "build-image.sh: no yum config paths mounted; using base image repository configuration"
+    echo "build-image.sh: mounting yum repo config file ${yum_repo_config_file}"
+    build_args=(
+        --volume "${yum_repo_config_file}:/etc/yum.repos.d/extra.repo:ro"
+        "${build_args[@]}"
+    )
 }
 
 mount_yum_config
