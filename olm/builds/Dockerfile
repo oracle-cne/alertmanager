@@ -4,8 +4,8 @@ ARG GOLANG_VERSION
 
 ENV NPM_CONFIG_USERCONFIG=/run/npm-config/.npmrc
 
-RUN dnf module install -y nodejs:24 && \
-    dnf -y install git make golang-${GOLANG_VERSION} hostname npm && \
+RUN dnf module install --enablerepo=ol9_codeready_builder -y nodejs:24 && \
+    dnf -y install --enablerepo=ol9_codeready_builder git make golang-${GOLANG_VERSION} hostname npm && \
     dnf clean all && \
     go version && \
     node --version && \
