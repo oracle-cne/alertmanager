@@ -2,10 +2,16 @@ import { defineConfig } from "vite";
 import elm from "vite-plugin-elm";
 import { compression, defineAlgorithm } from "vite-plugin-compression2";
 
+const pathToElm = process.env.ELM || "elm";
+
 export default defineConfig({
   base: "./",  // ensure that `--web.route.prefix` works correctly.
   plugins: [
-    elm(),
+    elm({
+      nodeElmCompilerOptions: {
+        pathToElm,
+      },
+    }),
     compression({
       include: [/\.(eot|ttf|ico|js|mjs|json|css|html|svg)$/],
       threshold: 0,
