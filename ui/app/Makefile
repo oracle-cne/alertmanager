@@ -4,9 +4,15 @@ ELM_FILES = $(shell find src -iname *.elm)
 # If JUNIT_DIR is set, the tests are executed with the JUnit reporter and the result is stored in the given directory.
 JUNIT_DIR           ?=
 DOCKER              ?=
+ELM                 ?= elm
+ELM_HOME            ?= elm-stuff/home
+ELM_VERSION         ?= 0.19.1
 OPENAPI_GEN_IMAGE   ?= docker.io/openapitools/openapi-generator-cli:v3.3.4
 UI_BUILD_IMAGE      ?= quay.io/prometheus/golang-builder:1.26-base #  Derived from ../../.promu.yml.
 CA_BUNDLE           ?=
+
+ELM_HOME_PACKAGES   = $(ELM_HOME)/$(ELM_VERSION)/packages
+ELM_VENDOR_PACKAGES = vendor/elm-home/$(ELM_VERSION)/packages
 
 ifeq ($(DOCKER),)
   # Run locally.
@@ -30,6 +36,8 @@ else
     -w /app \
     $(USER_ARGS) \
     --env HOME=/tmp \
+    --env ELM=$(ELM) \
+    --env ELM_HOME=$(ELM_HOME) \
     $(CA_BUNDLE_ARGS) \
     $(UI_BUILD_IMAGE)
   NPM = $(DOCKER_RUN) npm
@@ -67,8 +75,10 @@ endif
 
 .PHONY: dev-server
 dev-server: node_modules
+	mkdir -p $(ELM_HOME_PACKAGES)
+	cp -R $(ELM_VENDOR_PACKAGES)/. $(ELM_HOME_PACKAGES)
 ifeq ($(DOCKER),)
-	npx elm reactor
+	ELM_HOME=$(ELM_HOME) $(ELM) reactor
 else
 	$(DOCKER) run --rm -it \
 	  --entrypoint "" \
@@ -76,9 +86,11 @@ else
 	  -w /app \
 	  -p 8000:8000 \
 	  $(USER_ARGS) \
+	  --env ELM=$(ELM) \
+	  --env ELM_HOME=$(ELM_HOME) \
 	  $(CA_BUNDLE_ARGS) \
 	  $(UI_BUILD_IMAGE) \
-	  npx elm reactor
+	  $(ELM) reactor
 endif
 
 .PHONY: build
@@ -86,8 +98,12 @@ build: dist/.build_stamp
 
 dist/.build_stamp: $(ELM_FILES) index.html vite.config.mjs package-lock.json
 	@echo ">> building frontend"
+	@echo ">> checking elm compiler"
+	ELM_HOME=$(ELM_HOME) $(ELM) --version
 	$(MAKE) node_modules
-	$(NPM) run build
+	mkdir -p $(ELM_HOME_PACKAGES)
+	cp -R $(ELM_VENDOR_PACKAGES)/. $(ELM_HOME_PACKAGES)
+	ELM=$(ELM) ELM_HOME=$(ELM_HOME) $(NPM) run build
 	@touch dist/.build_stamp
 
 src/Data: ../../api/v2/openapi.yaml
