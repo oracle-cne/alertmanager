@@ -9,8 +9,7 @@ RUN dnf module install --enablerepo=ol9_codeready_builder -y nodejs:24 && \
     dnf clean all && \
     go version && \
     node --version && \
-    npm --version && \
-    npm install -g elm@latest-0.19.2
+    npm --version
 
 # Copy the contents of the repository
 COPY . /workspace/go/src/github.com/oracle-cne/alertmanager
@@ -21,6 +20,7 @@ WORKDIR /workspace/go/src/github.com/oracle-cne/alertmanager
 
 RUN --mount=type=secret,id=npmrc,target=/run/npm-config/.npmrc \
     git config --global --add safe.directory $(pwd) && \
+    npm install -g elm@latest-0.19.2 && \
     bash olm/go-build.sh
 
 FROM container-registry.oracle.com/os/oraclelinux:9-slim
