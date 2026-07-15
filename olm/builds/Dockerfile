@@ -9,7 +9,8 @@ RUN dnf module install --enablerepo=ol9_codeready_builder -y nodejs:24 && \
     dnf clean all && \
     go version && \
     node --version && \
-    npm --version
+    npm --version && \
+    npm install -g elm@latest-0.19.2
 
 # Copy the contents of the repository
 COPY . /workspace/go/src/github.com/oracle-cne/alertmanager
