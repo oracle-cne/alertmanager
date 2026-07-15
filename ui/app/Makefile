@@ -15,12 +15,14 @@ ELM_HOME_PACKAGES   = $(ELM_HOME)/$(ELM_VERSION)/packages
 ELM_VENDOR_PACKAGES = vendor/elm-home/$(ELM_VERSION)/packages
 
 ifeq ($(DOCKER),)
+  NPM_CI_LIBC ?= $(shell node -p "process.platform === 'linux' ? (process.report.getReport().header.glibcVersionRuntime ? 'glibc' : 'musl') : ''" 2>/dev/null)
   # Run locally.
   NPM = npm
   NPX = npx
   CONTAINER_RUNTIME = docker # Runtime is needed, since src/Data requires the OPENAPI_GEN_IMAGE.
   USER_ARGS = --user $(shell id -u):$(shell id -g)
 else
+  NPM_CI_LIBC ?= glibc
   # Run npm and npx inside container runtime.
 	# `USER_ARGS` prevents creation of root-owned files.
   ifeq ($(DOCKER),podman)
@@ -45,12 +47,14 @@ else
   CONTAINER_RUNTIME = $(DOCKER)
 endif
 
+NPM_CI_LIBC_FLAG = $(if $(NPM_CI_LIBC),--libc=$(NPM_CI_LIBC))
+
 .PHONY: all
 all: src/Data build test
 
 node_modules: package-lock.json
-	@echo ">> installing dependencies"
-	$(NPM) ci
+	@echo ">> installing dependencies (npm libc: $(or $(NPM_CI_LIBC),default))"
+	$(NPM) ci $(NPM_CI_LIBC_FLAG)
 
 .PHONY: format
 format: node_modules $(ELM_FILES)
