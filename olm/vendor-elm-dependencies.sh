@@ -16,7 +16,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 APP_DIR="$(cd -- "${SCRIPT_DIR}/../ui/app" && pwd)"
 
 ELM="${ELM:-elm}"
-ELM_VERSION="${ELM_VERSION:-0.19.1}"
+ELM_VERSION="${ELM_VERSION:-0.19.2}"
 ELM_MAIN="${ELM_MAIN:-src/Main.elm}"
 ELM_VENDOR_HOME="${ELM_VENDOR_HOME:-${APP_DIR}/vendor/elm-home}"
 ELM_DOWNLOAD_HOME="${ELM_DOWNLOAD_HOME:-}"
