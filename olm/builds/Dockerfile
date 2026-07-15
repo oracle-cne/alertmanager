@@ -20,7 +20,7 @@ WORKDIR /workspace/go/src/github.com/oracle-cne/alertmanager
 
 RUN --mount=type=secret,id=npmrc,target=/run/npm-config/.npmrc \
     git config --global --add safe.directory $(pwd) && \
-    npm install -g elm@0.19.1 && \
+    npm install -g elm@latest-0.19.2 && \
     bash olm/go-build.sh
 
 FROM container-registry.oracle.com/os/oraclelinux:9-slim
