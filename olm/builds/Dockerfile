@@ -1,7 +1,8 @@
 FROM container-registry.oracle.com/os/oraclelinux:9 AS builder
 
 RUN dnf config-manager --enable ol9_codeready_builder && \
-    dnf -y install git make golang hostname && \
+    dnf -y module install nodejs:24 && \
+    dnf -y install git make golang hostname npm && \
     go version
 
 # Copy the contents of the repository
