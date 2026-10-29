@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+set -e
+
+if grep -q "^ui-elm:" Makefile; then
+    make ui-elm
+fi
+
 mkdir -p bin
 version="0.34.2"
 
