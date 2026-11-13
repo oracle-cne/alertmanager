@@ -1,0 +1,13 @@
+diff --git a/ui/app/review/elm.json b/ui/app/review/elm.json
+index 9f7e06a1a7974fe1f3fa5d8fb310c8b032ea2a6c..bc50d0e8411c84a6e87d2f9c3c9e7ff39905786b 100644
+--- a/ui/app/review/elm.json
++++ b/ui/app/review/elm.json
+@@ -3,7 +3,7 @@
+     "source-directories": [
+         "src"
+     ],
+-    "elm-version": "0.19.1",
++    "elm-version": "0.19.2",
+     "dependencies": {
+         "direct": {
+             "elm/core": "1.0.5",

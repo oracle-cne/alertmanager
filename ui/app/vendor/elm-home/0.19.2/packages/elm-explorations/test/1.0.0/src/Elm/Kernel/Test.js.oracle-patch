@@ -1,0 +1,24 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm-explorations/test/1.0.0/src/Elm/Kernel/Test.js b/ui/app/vendor/elm-home/0.19.2/packages/elm-explorations/test/1.0.0/src/Elm/Kernel/Test.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..1ef036337027b21727b3ac20f469caec26a3f524
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm-explorations/test/1.0.0/src/Elm/Kernel/Test.js
+@@ -0,0 +1,18 @@
++/*
++
++import Elm.Kernel.Utils exposing (Tuple0)
++import Result exposing (Err, Ok)
++
++*/
++
++
++function _Test_runThunk(thunk)
++{
++  try {
++    // Attempt to run the thunk as normal.
++    return __Result_Ok(thunk(__Utils_Tuple0));
++  } catch (err) {
++    // If it throws, return an error instead of crashing.
++    return __Result_Err(err.toString());
++  }
++}

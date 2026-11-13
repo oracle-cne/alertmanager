@@ -1,0 +1,49 @@
+diff --git a/ui/app/Makefile b/ui/app/Makefile
+--- a/ui/app/Makefile
++++ b/ui/app/Makefile
+@@ -4,12 +4,21 @@
+ # If JUNIT_DIR is set, the tests are executed with the JUnit reporter and the result is stored in the given directory.
+ JUNIT_DIR ?=
+ DOCKER              ?= docker
++ELM                 ?= elm
++ELM_HOME            ?= elm-stuff/home
++ELM_VERSION         ?= 0.19.2
+ OPENAPI_GEN_IMAGE   ?= openapitools/openapi-generator-cli:v3.3.4
++
++ELM_HOME_PACKAGES   = $(ELM_HOME)/$(ELM_VERSION)/packages
++ELM_VENDOR_PACKAGES = vendor/elm-home/$(ELM_VERSION)/packages
++NPM_CI_LIBC ?= $(shell node -p "process.platform === 'linux' ? (process.report.getReport().header.glibcVersionRuntime ? 'glibc' : 'musl') : ''" 2>/dev/null)
++NPM_CI_LIBC_FLAG = $(if $(NPM_CI_LIBC),--libc=$(NPM_CI_LIBC))
+ 
+ all: src/Data build test
+ 
+ node_modules: package-lock.json
+-	npm ci
++	@echo ">> installing dependencies (npm libc: $(or $(NPM_CI_LIBC),default))"
++	npm ci $(NPM_CI_LIBC_FLAG)
+ 
+ format: node_modules $(ELM_FILES)
+ 	@echo ">> format front-end code"
+@@ -30,14 +39,20 @@
+ endif
+ 
+ dev-server:
+-	npx elm reactor
++	mkdir -p $(ELM_HOME_PACKAGES)
++	cp -R $(ELM_VENDOR_PACKAGES)/. $(ELM_HOME_PACKAGES)
++	ELM_HOME=$(ELM_HOME) $(ELM) reactor
+ 
+ .PHONY: build
+ build: .build_stamp
+ 
+ .build_stamp: $(ELM_FILES) index.html vite.config.mjs node_modules
+ 	@echo ">> building frontend"
+-	npm run build
++	@echo ">> checking elm compiler"
++	ELM_HOME=$(ELM_HOME) $(ELM) --version
++	mkdir -p $(ELM_HOME_PACKAGES)
++	cp -R $(ELM_VENDOR_PACKAGES)/. $(ELM_HOME_PACKAGES)
++	ELM=$(ELM) ELM_HOME=$(ELM_HOME) npm run build
+ 	@touch .build_stamp
+ 
+ src/Data: ../../api/v2/openapi.yaml

@@ -1,0 +1,11 @@
+diff --git a/ui/app/package.json b/ui/app/package.json
+--- a/ui/app/package.json
++++ b/ui/app/package.json
+@@ -6,7 +6,6 @@
+     "build": "vite build"
+   },
+   "devDependencies": {
+-    "elm": "0.19.1-6",
+     "elm-format": "0.8.7",
+     "elm-review": "2.5.0",
+     "elm-test": "0.19.1-revision6",

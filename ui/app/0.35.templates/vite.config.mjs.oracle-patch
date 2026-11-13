@@ -1,0 +1,25 @@
+diff --git a/ui/app/vite.config.mjs b/ui/app/vite.config.mjs
+--- a/ui/app/vite.config.mjs
++++ b/ui/app/vite.config.mjs
+@@ -1,6 +1,8 @@
+ import { defineConfig } from "vite";
+ import elm from "vite-plugin-elm";
+ import { compression, defineAlgorithm } from "vite-plugin-compression2";
++
++const pathToElm = process.env.ELM || "elm";
+ 
+ export default defineConfig({
+   base: "./",  // ensure that `--web.route.prefix` works correctly.
+@@ -8,7 +10,11 @@
+     outDir: "dist/elm",
+   },
+   plugins: [
+-    elm(),
++    elm({
++      nodeElmCompilerOptions: {
++        pathToElm,
++      },
++    }),
+     compression({
+       include: [/\.(eot|ttf|ico|js|mjs|json|css|html|svg)$/],
+       threshold: 0,

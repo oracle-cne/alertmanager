@@ -1,0 +1,45 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Bitwise.js b/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Bitwise.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..612e8c7c7ee192e569e8bbd9b79458ce01b35a79
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Bitwise.js
+@@ -0,0 +1,39 @@
++/*
++
++*/
++
++
++var _Bitwise_and = F2(function(a, b)
++{
++	return a & b;
++});
++
++var _Bitwise_or = F2(function(a, b)
++{
++	return a | b;
++});
++
++var _Bitwise_xor = F2(function(a, b)
++{
++	return a ^ b;
++});
++
++function _Bitwise_complement(a)
++{
++	return ~a;
++};
++
++var _Bitwise_shiftLeftBy = F2(function(offset, a)
++{
++	return a << offset;
++});
++
++var _Bitwise_shiftRightBy = F2(function(offset, a)
++{
++	return a >> offset;
++});
++
++var _Bitwise_shiftRightZfBy = F2(function(offset, a)
++{
++	return a >>> offset;
++});

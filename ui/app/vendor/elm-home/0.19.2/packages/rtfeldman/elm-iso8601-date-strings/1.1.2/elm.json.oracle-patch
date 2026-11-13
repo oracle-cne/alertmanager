@@ -1,0 +1,27 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/rtfeldman/elm-iso8601-date-strings/1.1.2/elm.json b/ui/app/vendor/elm-home/0.19.2/packages/rtfeldman/elm-iso8601-date-strings/1.1.2/elm.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..f8b47874ade3c41b3b6e70a6667bb5b00bf3b314
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/rtfeldman/elm-iso8601-date-strings/1.1.2/elm.json
+@@ -0,0 +1,20 @@
++{
++    "type": "package",
++    "name": "rtfeldman/elm-iso8601-date-strings",
++    "summary": "Convert ISO8601 date strings to and from Posix times",
++    "license": "BSD-3-Clause",
++    "version": "1.1.2",
++    "exposed-modules": [
++        "Iso8601"
++    ],
++    "elm-version": "0.19.0 <= v < 0.20.0",
++    "dependencies": {
++        "elm/core": "1.0.0 <= v < 2.0.0",
++        "elm/json": "1.0.0 <= v < 2.0.0",
++        "elm/parser": "1.0.0 <= v < 2.0.0",
++        "elm/time": "1.0.0 <= v < 2.0.0"
++    },
++    "test-dependencies": {
++        "elm-explorations/test": "1.0.0 <= v < 2.0.0"
++    }
++}
+\ No newline at end of file

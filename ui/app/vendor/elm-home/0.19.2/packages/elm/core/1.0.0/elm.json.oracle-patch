@@ -1,0 +1,46 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/elm.json b/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/elm.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..b094391539a4db1486f3930d9b3fac44ad4c2ce1
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/elm.json
+@@ -0,0 +1,39 @@
++{
++	"type": "package",
++	"name": "elm/core",
++	"summary": "Elm's standard libraries",
++	"license": "BSD-3-Clause",
++	"version": "1.0.0",
++	"exposed-modules": {
++		"Primitives": [
++			"Basics",
++			"String",
++			"Char",
++			"Bitwise",
++			"Tuple"
++		],
++		"Collections": [
++			"List",
++			"Dict",
++			"Set",
++			"Array"
++		],
++		"Error Handling": [
++			"Maybe",
++			"Result"
++		],
++		"Debug": [
++			"Debug"
++		],
++		"Effects": [
++			"Platform",
++			"Platform.Cmd",
++			"Platform.Sub",
++			"Task",
++			"Process"
++		]
++	},
++	"elm-version": "0.19.0 <= v < 0.20.0",
++	"dependencies": {},
++	"test-dependencies": {}
++}
+\ No newline at end of file

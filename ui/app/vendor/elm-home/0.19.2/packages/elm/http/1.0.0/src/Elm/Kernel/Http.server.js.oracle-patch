@@ -1,0 +1,45 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/http/1.0.0/src/Elm/Kernel/Http.server.js b/ui/app/vendor/elm-home/0.19.2/packages/elm/http/1.0.0/src/Elm/Kernel/Http.server.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..4c3d7164d05c9a187c436bc4f03d750bbade272d
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/http/1.0.0/src/Elm/Kernel/Http.server.js
+@@ -0,0 +1,39 @@
++/*
++
++import Elm.Kernel.Platform exposing (preload)
++import Elm.Kernel.Scheduler exposing (binding)
++import Http.Internal as HI exposing (FormDataBody)
++
++*/
++
++
++var _Http_toTask = F2(function(request, maybeProgress)
++{
++	return __Scheduler_binding(function(callback)
++	{
++		__Platform_preload.add(request.__$url);
++	});
++});
++
++
++function _Http_expectStringResponse(responseToResult)
++{
++	return {
++		$: __0_EXPECT,
++		__responseType: 'text',
++		__responseToResult: responseToResult
++	};
++}
++
++
++function _Http_multipart()
++{
++	return __HI_FormDataBody(new FormData());
++}
++
++
++var _Http_mapExpect = F2(function(func, expect)
++{
++	return expect;
++});
++

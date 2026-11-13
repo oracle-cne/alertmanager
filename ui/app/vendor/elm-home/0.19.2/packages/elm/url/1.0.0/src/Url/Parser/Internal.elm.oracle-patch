@@ -1,0 +1,16 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/src/Url/Parser/Internal.elm b/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/src/Url/Parser/Internal.elm
+new file mode 100644
+index 0000000000000000000000000000000000000000..a7e1b80e2d18fc7e4f94e2f4bd88428525e0839f
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/src/Url/Parser/Internal.elm
+@@ -0,0 +1,10 @@
++module Url.Parser.Internal exposing
++  ( QueryParser(..)
++  )
++
++
++import Dict
++
++
++type QueryParser a =
++  Parser (Dict.Dict String (List String) -> a)

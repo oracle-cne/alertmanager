@@ -1,0 +1,24 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/http/1.0.0/elm.json b/ui/app/vendor/elm-home/0.19.2/packages/elm/http/1.0.0/elm.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..037f00b3c62dbf434bccc07e11e1d43c81fc975b
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/http/1.0.0/elm.json
+@@ -0,0 +1,17 @@
++{
++    "type": "package",
++    "name": "elm/http",
++    "summary": "Make HTTP requests",
++    "license": "BSD-3-Clause",
++    "version": "1.0.0",
++    "exposed-modules": [
++        "Http",
++        "Http.Progress"
++    ],
++    "elm-version": "0.19.0 <= v < 0.20.0",
++    "dependencies": {
++        "elm/core": "1.0.0 <= v < 2.0.0",
++        "elm/json": "1.0.0 <= v < 2.0.0"
++    },
++    "test-dependencies": {}
++}
+\ No newline at end of file

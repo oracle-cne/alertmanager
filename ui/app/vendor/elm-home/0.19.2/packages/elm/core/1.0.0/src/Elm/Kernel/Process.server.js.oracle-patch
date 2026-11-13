@@ -1,0 +1,17 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Process.server.js b/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Process.server.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..9230604ab3c56788ee034bf60ad1a92e084da34b
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Process.server.js
+@@ -0,0 +1,11 @@
++/*
++
++import Elm.Kernel.Scheduler exposing (binding)
++
++*/
++
++
++function _Process_sleep()
++{
++	return __Scheduler_binding(function() {});
++}

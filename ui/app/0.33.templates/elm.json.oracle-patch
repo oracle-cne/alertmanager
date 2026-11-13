@@ -1,0 +1,13 @@
+diff --git a/ui/app/elm.json b/ui/app/elm.json
+index 169c275645cceaea5b5d23ea89f97e49ff3f94e6..7858b8cb8688372949ef82ac90395eca9245dcd9 100644
+--- a/ui/app/elm.json
++++ b/ui/app/elm.json
+@@ -3,7 +3,7 @@
+     "source-directories": [
+         "src"
+     ],
+-    "elm-version": "0.19.1",
++    "elm-version": "0.19.2",
+     "dependencies": {
+         "direct": {
+             "elm/browser": "1.0.0",
