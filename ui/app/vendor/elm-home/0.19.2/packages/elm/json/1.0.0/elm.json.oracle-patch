@@ -1,0 +1,23 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/json/1.0.0/elm.json b/ui/app/vendor/elm-home/0.19.2/packages/elm/json/1.0.0/elm.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..0e89671a9acdd49dfb9a09c4e49e55b72818b2b5
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/json/1.0.0/elm.json
+@@ -0,0 +1,16 @@
++{
++	"type": "package",
++	"name": "elm/json",
++	"summary": "Encode and decode JSON values",
++	"license": "BSD-3-Clause",
++	"version": "1.0.0",
++	"exposed-modules": [
++		"Json.Decode",
++		"Json.Encode"
++	],
++	"elm-version": "0.19.0 <= v < 0.20.0",
++	"dependencies": {
++		"elm/core": "1.0.0 <= v < 2.0.0"
++	},
++	"test-dependencies": {}
++}
+\ No newline at end of file

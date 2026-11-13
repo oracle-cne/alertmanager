@@ -1,0 +1,25 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/elm.json b/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/elm.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..38c1c9c25806114712a5ea7b7c4d3b09158d6c16
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/elm.json
+@@ -0,0 +1,19 @@
++{
++    "type": "package",
++    "name": "elm/url",
++    "summary": "Create and parse URLs. Use for HTTP and \"routing\" in single-page apps (SPAs)",
++    "license": "BSD-3-Clause",
++    "version": "1.0.0",
++    "exposed-modules": [
++        "Url",
++        "Url.Builder",
++        "Url.Parser",
++        "Url.Parser.Query"
++    ],
++    "elm-version": "0.19.0 <= v < 0.20.0",
++    "dependencies": {
++        "elm/core": "1.0.0 <= v < 2.0.0"
++    },
++    "test-dependencies": {
++    }
++}

@@ -1,0 +1,23 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/NoRedInk/elm-json-decode-pipeline/1.0.0/elm.json b/ui/app/vendor/elm-home/0.19.2/packages/NoRedInk/elm-json-decode-pipeline/1.0.0/elm.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..347fcd1475efeee928b48ffed92d2c2fe5a45c5e
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/NoRedInk/elm-json-decode-pipeline/1.0.0/elm.json
+@@ -0,0 +1,16 @@
++{
++    "type": "package",
++    "name": "NoRedInk/elm-json-decode-pipeline",
++    "summary": "Use pipelines to build JSON Decoders.",
++    "license": "BSD-3-Clause",
++    "version": "1.0.0",
++    "exposed-modules": [
++        "Json.Decode.Pipeline"
++    ],
++    "elm-version": "0.19.0 <= v < 0.20.0",
++    "dependencies": {
++        "elm/core": "1.0.0 <= v < 2.0.0",
++        "elm/json": "1.0.0 <= v < 2.0.0"
++    },
++    "test-dependencies": {}
++}
+\ No newline at end of file

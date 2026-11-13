@@ -1,0 +1,22 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/time/1.0.0/src/Elm/Kernel/Time.server.js b/ui/app/vendor/elm-home/0.19.2/packages/elm/time/1.0.0/src/Elm/Kernel/Time.server.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..45a84011bb8ff223fa69e855cd8a6b936b073594
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/time/1.0.0/src/Elm/Kernel/Time.server.js
+@@ -0,0 +1,16 @@
++/*
++
++import Elm.Kernel.Scheduler exposing (binding)
++
++*/
++
++
++function _Time_neverResolve()
++{
++	return __Scheduler_binding(function() {});
++}
++
++var _Time_now = _Time_neverResolve;
++var _Time_here = _Time_neverResolve;
++var _Time_getZoneName = _Time_neverResolve;
++var _Time_setInterval = F2(_Time_neverResolve);

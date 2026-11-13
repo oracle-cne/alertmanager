@@ -1,0 +1,24 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Process.js b/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Process.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..4a750f321d9a4ea9e71c858317036351110caa0f
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/core/1.0.0/src/Elm/Kernel/Process.js
+@@ -0,0 +1,18 @@
++/*
++
++import Elm.Kernel.Scheduler exposing (binding, succeed)
++import Elm.Kernel.Utils exposing (Tuple0)
++
++*/
++
++
++function _Process_sleep(time)
++{
++	return __Scheduler_binding(function(callback) {
++		var id = setTimeout(function() {
++			callback(__Scheduler_succeed(__Utils_Tuple0));
++		}, time);
++
++		return function() { clearTimeout(id); };
++	});
++}

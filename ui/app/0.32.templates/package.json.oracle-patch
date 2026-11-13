@@ -1,0 +1,12 @@
+diff --git a/ui/app/package.json b/ui/app/package.json
+index edbcf5f681bf82a183178c5a33a68fa55a3ec805..918477abaf1d297a9eb31f99d2201faa6e3d5061 100644
+--- a/ui/app/package.json
++++ b/ui/app/package.json
+@@ -6,7 +6,6 @@
+     "build": "vite build"
+   },
+   "devDependencies": {
+-    "elm": "0.19.1",
+     "elm-format": "0.8.7",
+     "elm-review": "2.5.0",
+     "elm-test": "0.19.1-revision6",

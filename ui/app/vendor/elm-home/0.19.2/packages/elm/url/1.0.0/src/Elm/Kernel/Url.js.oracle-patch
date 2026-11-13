@@ -1,0 +1,29 @@
+diff --git a/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/src/Elm/Kernel/Url.js b/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/src/Elm/Kernel/Url.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..da256b0c1e62cb6603dc7b5dbd70b5a1d69458e8
+--- /dev/null
++++ b/ui/app/vendor/elm-home/0.19.2/packages/elm/url/1.0.0/src/Elm/Kernel/Url.js
+@@ -0,0 +1,22 @@
++/*
++
++import Maybe exposing (Just, Nothing)
++
++*/
++
++function _Url_percentEncode(string)
++{
++	return encodeURIComponent(string);
++}
++
++function _Url_percentDecode(string)
++{
++	try
++	{
++		return __Maybe_Just(decodeURIComponent(string));
++	}
++	catch (e)
++	{
++		return __Maybe_Nothing;
++	}
++}
+\ No newline at end of file
